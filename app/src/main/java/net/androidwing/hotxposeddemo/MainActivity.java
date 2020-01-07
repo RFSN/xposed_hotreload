@@ -23,8 +23,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.activity_main);
 
-        new CommonUtils().with(this).initAppPath();
-
         restartTargetApp(Constants.TARGET_PACKAGE_NAME, "HomeActivity");
 
         initView();
