@@ -14,9 +14,6 @@ import net.androidwing.hotxposed.IHookerDispatcher;
 public class HookerDispatcher implements IHookerDispatcher {
   @Override public void dispatch(XC_LoadPackage.LoadPackageParam loadPackageParam) {
 
-    if(!Constants.TARGET_PACKAGE_NAME.equals(loadPackageParam.packageName)){
-      return;
-    }
     XposedHelpers.findAndHookMethod("com.wingsofts.zoomimageheader.HomeActivity",
         loadPackageParam.classLoader, "onCreate", Bundle.class, new XC_MethodHook() {
           @Override protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
@@ -26,7 +23,7 @@ public class HookerDispatcher implements IHookerDispatcher {
           @Override protected void afterHookedMethod(XC_MethodHook.MethodHookParam param)
               throws Throwable {
             super.afterHookedMethod(param);
-            Toast.makeText((Context) param.thisObject, "Hello World", Toast.LENGTH_SHORT).show();
+            Toast.makeText((Context) param.thisObject, "Hot World", Toast.LENGTH_SHORT).show();
           }
         });
   }

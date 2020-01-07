@@ -1,5 +1,4 @@
-package net.androidwing.hotxposeddemo;
-import android.util.Log;
+package net.androidwing.hotxposed;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;

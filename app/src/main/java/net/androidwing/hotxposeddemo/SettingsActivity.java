@@ -2,6 +2,7 @@ package net.androidwing.hotxposeddemo;
 
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.Application;
 import android.app.FragmentManager;
 import android.content.ComponentName;
@@ -15,7 +16,14 @@ import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceFragment;
 import android.support.v7.app.AppCompatActivity;
 
+import com.socks.library.KLog;
+
+import net.androidwing.hotxposed.CommonUtils;
+import net.androidwing.hotxposed.ShellUtil;
+
 import java.lang.reflect.Method;
+
+import static net.androidwing.hotxposed.CommonUtils.restartTargetApp;
 
 
 public class SettingsActivity extends AppCompatActivity {
@@ -47,12 +55,10 @@ public class SettingsActivity extends AppCompatActivity {
         public void onCreate(final Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
 
+
             getPreferenceManager().setSharedPreferencesMode(MODE_WORLD_READABLE);
             addPreferencesFromResource(R.xml.pref_setting);
 
-            getPreferenceManager().getSharedPreferences().edit()
-                    .putString("not_contains", this.getApplication().getPackageResourcePath())
-                    .apply();
 
             Preference reset = findPreference("author");
             reset.setOnPreferenceClickListener(new OnPreferenceClickListener() {
@@ -79,6 +85,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         }
 
+
         private Application getApplication() {
             try {
                 final Class<?> activityThreadClass =
@@ -91,5 +98,6 @@ public class SettingsActivity extends AppCompatActivity {
         }
 
     }
+
 
 }

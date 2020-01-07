@@ -6,6 +6,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.socks.library.KLog;
+
+import net.androidwing.hotxposed.CommonUtils;
+import net.androidwing.hotxposed.PreferencesUtils;
+import net.androidwing.hotxposed.ShellUtil;
+
+import static net.androidwing.hotxposed.CommonUtils.restartTargetApp;
+
 public class MainActivity extends Activity implements View.OnClickListener {
 
     protected Button btnSettings;
@@ -14,7 +22,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.activity_main);
-        ShellUtil.execCommand("am force-stop " + Constants.TARGET_PACKAGE_NAME, true);
+
+        new CommonUtils().with(this).initAppPath();
+
+        restartTargetApp(Constants.TARGET_PACKAGE_NAME, "HomeActivity");
+
         initView();
     }
 

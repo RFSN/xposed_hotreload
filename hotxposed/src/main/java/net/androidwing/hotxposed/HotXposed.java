@@ -19,9 +19,8 @@ public class HotXposed {
     public static void hook(Class clazz, XC_LoadPackage.LoadPackageParam lpparam) {
         String packageName = clazz.getName().replace("." + clazz.getSimpleName(), "");
 
-
         String appPath = getApkPath(packageName);
-        XposedBridge.log("ysnows: " + appPath);
+        XposedBridge.log("ysnows: " + lpparam.packageName + ": " + appPath);
 
         if (appPath != null) {
 
@@ -38,31 +37,13 @@ public class HotXposed {
                 e.printStackTrace();
             }
         }
-
-
-//        filterNotify(lpparam);
-
     }
 
-//    private static void filterNotify(XC_LoadPackage.LoadPackageParam lpparam)
-//            throws ClassNotFoundException {
-//        if ("de.robv.android.xposed.installer".equals(lpparam.packageName)) {
-//            XposedHelpers.findAndHookMethod(lpparam.classLoader.loadClass("de.robv.android.xposed.installer.util.NotificationUtil"),
-//                    "showModulesUpdatedNotification", new XC_MethodHook() {
-//                        @Override
-//                        protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-//                            param.setResult(new Object());
-//                        }
-//
-//                        @Override
-//                        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-//                            super.afterHookedMethod(param);
-//                        }
-//                    });
-//        }
-//    }
 
     private static String getApkPath(final String packageName) {
+//        ShellUtil.CommandResult commandResult = ShellUtil.execCommand("pm path " + BuildConfig.APPLICATION_ID, false);
+//        String tos = commandResult.successMsg.substring(8, commandResult.successMsg.length() - 1);
+
         String notContains = PreferencesUtils.notContains(packageName);
         return notContains;
     }
